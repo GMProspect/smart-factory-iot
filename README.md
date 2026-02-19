@@ -1,9 +1,8 @@
 # Industrial IoT Smart Sorting System (Prototype)
 > *Integración real IT/OT: Visión Artificial en la Frontera (Edge) para Industria 4.0.*
 
-![Smart Factory Banner](ruta/a/banner_smartfactory.jpg)
 
-## 🚩 El Desafío
+
 En la manufactura moderna, la latencia entre la detección de un defecto y la actuación mecánica es crítica. Los sistemas tradicionales de visión suelen ser costosos y rígidos. Se buscaba demostrar una arquitectura flexible y de bajo costo capaz de clasificación a alta velocidad e integración con ERPs.
 
 ## 💡 La Solución
