@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFactory: Edge AI & Digital Twin</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for the Motor Current Oscilloscope -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span class="icon">🏭</span>
+            <h1>SmartFactory IoT</h1>
+            <span class="badge">Edge AI Node Active</span>
+        </div>
+        <div class="status">
+            <div class="status-indicator"></div>
+            <span id="connection-status">Connecting to Edge Server...</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Digital Twin Panel -->
+        <section class="panel twin-panel">
+            <div class="panel-header">
+                <h2>🌐 Digital Twin: Sorting Process</h2>
+                <div class="counters">
+                    🔴 <span id="count-red">0</span> |
+                    🟢 <span id="count-green">0</span> |
+                    🔵 <span id="count-blue">0</span>
+                </div>
+            </div>
+
+            <div class="factory-floor">
+                <div class="conveyor-belt">
+                    <div class="belt-texture"></div>
+                </div>
+                <!-- Box will be injected here via JS -->
+                <div id="sim-box" class="box" style="display: none;"></div>
+
+                <!-- Sorting Chutes -->
+                <div class="chute chute-red">Red</div>
+                <div class="chute chute-green">Green</div>
+                <div class="chute chute-blue">Blue</div>
+
+                <!-- The Robotic Assorter Arm -->
+                <div class="robot-arm"></div>
+            </div>
+            <div class="controls">
+                <button id="btn-reset" class="btn secondary">Reset Counters</button>
+            </div>
+        </section>
+
+        <!-- Predictive Maintenance AI Panel -->
+        <section class="panel ai-panel">
+            <div class="panel-header">
+                <h2>🧠 Machine Learning: Predictive Maintenance</h2>
+                <span id="ai-status" class="badge ok">Condition: Nominal</span>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="motorChart"></canvas>
+            </div>
+
+            <div class="ai-controls">
+                <p>Simulate Mechanical Fault in the Conveyor Belt:</p>
+                <div class="button-group">
+                    <button id="btn-inject-friction" class="btn danger">⚠️ Inject Motor Friction</button>
+                    <button id="btn-clear-friction" class="btn success">✅ Perform Maintenance</button>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <h4>Edge Analytics</h4>
+                <p><strong>Algo:</strong> Motor Current Signature Analysis (MCSA)</p>
+                <p><strong>Latency:</strong>
+                    < 10ms (Local Python Processing)</p>
+                        <p id="current-readout">Nominal Current: 2.50 A</p>
+            </div>
+        </section>
+
+        <!-- Cloud Telemetry Panel -->
+        <section class="panel cloud-panel">
+            <div class="panel-header">
+                <h2>☁️ Cloud Telemetry</h2>
+            </div>
+            <div class="telemetry-log" id="cloud-log">
+                <div class="log-entry system">Awaiting connection to AWS/Firebase...</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
