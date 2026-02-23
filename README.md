@@ -4,50 +4,83 @@
   <h1>🏭 Industrial IoT Smart Sorting System: Edge AI & Digital Twin</h1>
   <p><strong>IT/OT Integration: Real-time Computer Vision, Predictive Maintenance & Cloud Telemetry</strong></p>
 
-  <a href="#-la-solución">Arquitectura</a> •
-  <a href="#-digital-twin--edge-ai-upgrades">Nuevos Features (Upgrades)</a> •
-  <a href="#-tecnologías">Tecnologías</a>
+  <a href="#-arquitectura-del-sistema">Arquitectura</a> •
+  <a href="#-capacidades-extendidas-del-sistema">Capacidades del Sistema</a> •
+  <a href="#-enfoque-tecnológico">Enfoque Tecnológico</a>
 </div>
 
 ---
 
-En la manufactura moderna, la latencia entre la detección de un defecto y la actuación mecánica es crítica. Los sistemas tradicionales de visión suelen ser costosos y rígidos. Este proyecto demuestra una arquitectura flexible y de bajo costo capaz de clasificación a alta velocidad e integración con ERPs y ecosistemas Cloud.
+> [!CAUTION]
+> **Aviso de Confidencialidad:** Este repositorio contiene la descripción arquitectónica y de diseño de un sistema propietario de clasificación y monitoreo industrial. El código fuente de la lógica de control, los algoritmos de visión artificial y de mantenimiento predictivo no se publican para proteger la propiedad intelectual (IP).
 
-## 💡 La Solución Base
-Un prototipo de **Smart Factory** que implementa una arquitectura Híbrida Edge-Cloud. El sistema físico clasifica productos en tiempo real usando visión artificial (Raspberry Pi/OpenCV) y control electromecánico (Arduino).
+En la manufactura moderna, la latencia entre la detección de un defecto y la actuación mecánica es crítica. Los sistemas tradicionales de visión suelen ser costosos, cerrados y poco integrables. Este proyecto expone una arquitectura propietaria, flexible y de bajo costo/alto rendimiento, capaz de ejecutar clasificación a alta velocidad en el "Edge" y de enviar telemetría a ecosistemas Cloud de forma segura.
 
-## 🚀 Digital Twin & Edge AI Upgrades
-El ecosistema ha sido expandido para incluir software de grado industrial, actuando como un simulador y panel de control (HMI) avanzado:
+## 🏗️ Arquitectura del Sistema
+
+El sistema implementa una arquitectura híbrida *Edge-to-Cloud*, donde el procesamiento pesado (como la inferencia de Inteligencia Artificial) se ejecuta localmente (On-Premise) para garantizar latencia cero, mientras que los datos agregados se sincronizan con la nube para analítica global.
+
+```mermaid
+graph TD
+    subgraph "Capa Operativa (OT)"
+        direction LR
+        Camera[Sensor Óptico / Visión]
+        Motor[Motor de Cinta Transportadora]
+        Actuator[Actuador Electromecánico Rápido]
+    end
+
+    subgraph "Nivel Edge (Procesamiento Local)"
+        EdgeNode[Controlador Inteligente Edge]
+        CV_Model[Modelo de Visión Artificial]
+        ML_Model[Motor de Inferencia MCSA]
+        ControlLogic[Lógica de Tiempo Real]
+    end
+
+    subgraph "Nivel Supervisorio & Nube (IT)"
+        DigitalTwin[Digital Twin HMI / Dashboard]
+        CloudDB[Cloud Telemetry & ERP Storage]
+    end
+
+    Camera -->|Flujo de Video| CV_Model
+    Motor -->|Telemetría de Corriente| ML_Model
+    
+    CV_Model --> ControlLogic
+    ML_Model -->|Detección de Anomalías| ControlLogic
+    
+    ControlLogic -->|Comando de Desvío| Actuator
+    
+    EdgeNode <-->|WebSockets (Baja Latencia)| DigitalTwin
+    EdgeNode -->|Agregación de Datos Segura| CloudDB
+```
+
+## 🚀 Capacidades Extendidas del Sistema
+
+El ecosistema cuenta con software de grado industrial, actuando como controlador de planta y panel supervisor (HMI) avanzado:
 
 ### 1. 🌐 Web 3D / 2D Digital Twin
-- **Simulación en Tiempo Real:** Dashboard web reactivo conectado por **WebSockets** al "Edge Node" (Python Backend).
-- **Animación Sincronizada:** Representación visual de la cinta transportadora y el brazo robótico clasificando las cajas instantáneamente según la telemetría enviada por los sensores simulados.
+- **Simulación y Monitoreo en Tiempo Real:** Dashboard web reactivo conectado por red local industrial al Nodo Edge.
+- **Visualización Sincronizada:** Representación gráfica e interactiva de la cinta transportadora y el brazo clasificador actuando instantáneamente sobre el producto, logrando un reflejo virtual (Gemelo Digital) de la física de la planta.
 
 ### 2. 🧠 Edge AI: Predictive Maintenance
-- **Machine Learning Local:** El backend Python ejecuta algoritmos de *Motor Current Signature Analysis (MCSA)*.
-- **Osciloscopio IoT:** La interfaz grafica muestra en vivo los picos de corriente del motor del transportador. 
-- **Detección de Anomalías:** Si se inyecta fricción deliberada en el motor, la IA detecta la anomalía en el patrón de amperaje y detiene la banda o emite una alerta temprana (Warning) *antes* de la falla catastrófica del rodamiento.
+- **Machine Learning Local:** El controlador ejecuta algoritmos de *Motor Current Signature Analysis (MCSA)*.
+- **Osciloscopio IoT:** La interfaz del sistema muestra en vivo los patrones de demanda de energía (amperaje) de los motores.
+- **Detección de Anomalías y Fricción:** A través de análisis de firmas, la Inteligencia Artificial detecta fricción anormal o desgaste en rodamientos, emitiendo alertas tempranas (Warnings) y detenciones preventivas *antes* de que ocurra una falla catastrófica, ahorrando tiempo de inactividad (Downtime).
 
-### 3. ☁️ Cloud Telemetry Mock
-- **Sincronización ERP:** Los contadores de productividad (cajas rojas, verdes, azules) se agregan y se simula su envío a la nube (AWS IoT Core / Firebase) cada N ciclos para no saturar el ancho de banda.
+### 3. ☁️ Cloud Telemetry Integrations
+- **Sincronización con ERP:** Los contadores de productividad (piezas clasificadas por tipo, mermas, tiempos de ciclo) se procesan y se empujan de forma controlada a bases de datos relacionales/documentales en la nube, optimizando el ancho de banda y permitiendo reportes ejecutivos.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Enfoque Tecnológico
 
-| Categoría | Tecnologías |
+El diseño del sistema se basó en los siguientes pilares tecnológicos y protocolos industriales:
+
+| Capa del Sistema | Enfoque Tecnológico |
 |-----------|-------------|
-| **Backend Simulator (Edge)** | Python 3, `websockets`, `asyncio` |
-| **Digital Twin (Frontend)** | HTML5, CSS3, Vanilla JS, **Chart.js**, WebSockets |
-| **Physical Prototyping** | Raspberry Pi, Arduino / C++, Motores DC/Step |
-| **Protocolos** | MQTT, WebSockets, Serial, REST |
-
-## ⚙️ Cómo ejecutar el Simulador (Digital Twin)
-
-1. Abrir una terminal en esta carpeta.
-2. Instalar dependencias: `pip install websockets`
-3. Ejecutar el Nodo Edge: `python src/factory_edge.py`
-4. Abrir `public/index.html` en tu navegador web.
+| **Edge Compute Node** | Microprocesador de alto rendimiento para ejecución de redes neuronales y análisis espectral. |
+| **Real-Time Controller** | Microcontrolador determinista (RTOS) para actuación de precisión en milisegundos. |
+| **Digital Twin HMI** | Interfaces web asíncronas de bajo consumo (Modo Oscuro Industrial) con renderizado dinámico. |
+| **Protocolos de Datos** | MQTT para IoT, WebSockets para el Digital Twin, y arquitecturas RESTful para integraciones ERP. |
 
 ---
-> Proyecto de Investigación y Desarrollo (R&D). Elaborado por **Gustavo Matheus** - Ingeniero de Proyecto.
+> Elaborado por **Gustavo Matheus** - Ingeniero de Proyecto e Integración de Sistemas.
