@@ -49,7 +49,8 @@ graph TD
     
     ControlLogic -->|Comando de Desvío| Actuator
     
-    EdgeNode <-->|WebSockets (Baja Latencia)| DigitalTwin
+    EdgeNode -->|WebSockets Baja Latencia| DigitalTwin
+    DigitalTwin -->|WebSockets Baja Latencia| EdgeNode
     EdgeNode -->|Agregación de Datos Segura| CloudDB
 ```
 
