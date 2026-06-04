@@ -84,4 +84,4 @@ El diseño del sistema se basó en los siguientes pilares tecnológicos y protoc
 | **Protocolos de Datos** | MQTT para IoT, WebSockets para el Digital Twin, y arquitecturas RESTful para integraciones ERP. |
 
 ---
-> Elaborado por **Gustavo Matheus** - Ingeniero de Proyecto e Integración de Sistemas.
+*Created by [GMProspect](https://github.com/GMProspect)*
